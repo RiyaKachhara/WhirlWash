@@ -1,4 +1,4 @@
-package com.whirlwash
+package com.whirllwash
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

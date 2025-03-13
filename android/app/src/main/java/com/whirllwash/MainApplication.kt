@@ -1,4 +1,4 @@
-package com.whirlwash
+package com.whirllwash
 
 import android.app.Application
 import com.facebook.react.PackageList
