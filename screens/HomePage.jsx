@@ -34,8 +34,8 @@ const HomePage = () => {
         />
 
         <View style={{backgroundColor:'#F5F5F5', height:'30%', width:'85%', borderRadius:5, marginTop:30, marginLeft:30, padding:10}}>
-            <Text style={{fontSize:30, fontWeight:400}}>Heading</Text>
-            <Text style={{fontSize:16, lineHeight:22, marginTop:5}}>"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi officiis incidunt autem corrupti explicabo deserunt numquam tempora soluta, quibusdam molestias iste quos perferendis ab sapiente beatae doloribus nobis reprehenderit voluptas! Consequuntur totam veniam aspernatur quibusdam repellat voluptate laborum! Porro, possimus!"</Text>
+            <Text style={{fontSize:25, fontWeight:400, color: '#3D4EB0' , marginBottom: 15}}>Welcome to WhirlWash!</Text>
+            <Text style={{fontSize:16, lineHeight:22, marginTop:5}}>"Laundry made simple. Book machines instantly, verify with OTP, and track your wash cycle—all from your phone. No waiting, no paperwork, just clean clothes effortlessly.RetryClaude can make mistakes. Please double-check responses."</Text>
         </View>
 
         <TouchableOpacity style={{backgroundColor:'#F5F5F5',height:'8%', width:'85%', marginTop:20, borderRadius:10, marginLeft:30, borderWidth:2, borderColor:'black', justifyContent:'center', alignItems:'center', flexDirection:'row', gap:10}}

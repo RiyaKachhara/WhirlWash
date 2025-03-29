@@ -819,12 +819,14 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import LaundryProgress from './LaundryProgress'; // Import the new component
 
 const Bookings = ({ navigation }) => {
   const [userBookings, setUserBookings] = useState([]);
   const [lastUses, setLastUses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [usageHistoryLoading, setUsageHistoryLoading] = useState(true);
+  const [showProgress, setShowProgress] = useState(false); // New state to control which view to show
   const currentUser = auth().currentUser;
 
   useEffect(() => {
@@ -856,6 +858,13 @@ const Bookings = ({ navigation }) => {
             });
             setUserBookings(bookings);
             setLoading(false);
+
+            // Show progress screen if there are active bookings
+            if (bookings.length > 0) {
+              setShowProgress(true);
+            } else {
+              setShowProgress(false);
+            }
           },
           error => {
             console.error('Listening for bookings failed: ', error);
@@ -1013,6 +1022,16 @@ const Bookings = ({ navigation }) => {
 
   // Only show history section if we have entries
   const showHistorySection = lastUses.length > 0;
+
+  // If showing progress view, render the LaundryProgress component
+  if (showProgress) {
+    return (
+      <LaundryProgress 
+        navigation={navigation} 
+        closeProgress={() => setShowProgress(false)} 
+      />
+    );
+  }
 
   return (
     <ScrollView

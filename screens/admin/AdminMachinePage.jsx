@@ -209,7 +209,11 @@ const AdminMachinePage = () => {
   }
 
   return (
+    
+
+    
     <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Text style={styles.heading}>LNMIIT Admin Panel</Text>
       <Text style={styles.subheading}>WhirlWash</Text>
 
@@ -423,16 +427,25 @@ const AdminMachinePage = () => {
           </View>
         </View>
       </Modal>
+      </ScrollView>
     </SafeAreaView>
+   
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:60,
+    //paddingTop:60,
+    backgroundColor: '#F5F5F5',
+    //padding: 20,
+  },
+  scrollContainer: {
+    paddingTop: 60,
     backgroundColor: '#F5F5F5',
     padding: 20,
+    paddingBottom: 100
+    // Remove flex: 1 from here
   },
   heading: {
     fontSize: 22,
