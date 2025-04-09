@@ -8,6 +8,9 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  StatusBar,
+  Platform,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -96,92 +99,114 @@ const Profile = ({route, navigation}) => {
 
   const handleLogout = async () => {
     try {
-        const currentUser = auth.currentUser;
+      const currentUser = auth.currentUser;
 
-        if (!currentUser) {
-            console.warn("No user currently signed in.");
-            Alert.alert("Logout", "No user is currently signed in.");
-            return;
-        }
+      if (!currentUser) {
+        console.warn("No user currently signed in.");
+        Alert.alert("Logout", "No user is currently signed in.");
+        return;
+      }
 
-        await auth.signOut(); // Firebase Auth Logout
-        await GoogleSignin.signOut(); // Google Sign-In Logout
-2
-        // Reset navigation stack to prevent going back after logout
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Welcome' }],
-        });
+      await auth.signOut(); // Firebase Auth Logout
+      await GoogleSignin.signOut(); // Google Sign-In Logout
 
+      // Reset navigation stack to prevent going back after logout
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
     } catch (error) {
-        console.error("Logout error:", error);
-        Alert.alert("Error", "Failed to log out");
+      console.error("Logout error:", error);
+      Alert.alert("Error", "Failed to log out");
     }
-};
-
+  };
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#3D4EB0" />
-        <Text style={styles.loadingText}>Loading profile...</Text>
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#3D4EB0" />
+          <Text style={styles.loadingText}>Loading profile...</Text>
+        </View>
+      </SafeAreaView>
     );
   }
 
   if (!userData) {
     return (
-      <View style={styles.loadingContainer}>
-        <Text style={styles.errorText}>User data not found</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={fetchUserEmail}>
-          <Text style={styles.retryText}>Retry</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.errorText}>User data not found</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={fetchUserEmail}>
+            <Text style={styles.retryText}>Retry</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.heading}>Profile</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.heading}>Profile</Text>
 
-      <Image source={require('../assets/user.png')} style={styles.img} />
-      <Text style={styles.name}>{userData.name}</Text>
+        <Image source={require('../assets/user.png')} style={styles.img} />
+        <Text style={styles.name}>{userData.Name}</Text>
 
-      <View style={styles.detailsContainer}>
-        <ProfileDetail label="Roll No." value={userData.RollNo} />
-        <ProfileDetail label="Email" value={userData.Email} />
-        <ProfileDetail label="Mobile No." value={userData.MobileNo} />
-        <ProfileDetail label="Role" value={userData.Role} />
-        <ProfileDetail label="Room No." value={userData.RoomNo} />
-      </View>
+        <View style={styles.detailsContainer}>
+          <ProfileDetail label="Roll No." value={userData.RollNo} />
+          <ProfileDetail label="Email" value={userData.Email} />
+          <ProfileDetail label="Mobile No." value={userData.MobileNo} />
+          <ProfileDetail label="Role" value={userData.Role} />
+          <ProfileDetail label="Room No." value={userData.RoomNo} />
+        </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Icon name="log-out-outline" size={20} color="#3D4EB0" />
-        <Text style={styles.logoutText}>Log Out</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Icon name="log-out-outline" size={20} color="#3D4EB0" />
+          <Text style={styles.logoutText}>Log Out</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.note}>
-        *If any of the above values are incorrect, contact the admin (caretaker)
-        for updates.
-      </Text>
-    </ScrollView>
+        <Text style={styles.note}>
+          *If any of the above values are incorrect, contact the admin (caretaker)
+          for updates.
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const ProfileDetail = ({label, value}) => (
   <View style={styles.detailItem}>
     <Text style={styles.detailLabel}>{label}</Text>
-    <Text style={styles.detailValue}>{value}</Text>
+    <Text style={styles.detailValue}>{value || 'Not specified'}</Text>
   </View>
 );
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white', padding: 20},
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  scrollViewContent: {
+    padding: 20,
+    paddingBottom: 90, // Extra padding at bottom for better scrolling
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    padding: 20,
   },
   loadingText: {marginTop: 10, fontSize: 16, color: '#666'},
   errorText: {fontSize: 18, color: '#ff3b30', marginBottom: 20},
@@ -215,7 +240,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   detailLabel: {fontSize: 16, fontWeight: '600', color: '#555'},
-  detailValue: {fontSize: 16, fontWeight: '400'},
+  detailValue: {
+    fontSize: 16, 
+    fontWeight: '400',
+    maxWidth: '60%', // Ensure long text doesn't overflow
+    textAlign: 'right',
+  },
   logoutButton: {
     backgroundColor: '#F5F5F5',
     height: 50,
@@ -235,7 +265,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#888',
     textAlign: 'center',
-    marginTop: 60,
+    marginTop: 40,
     marginBottom: 20,
   },
 });

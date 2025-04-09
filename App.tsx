@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import AppNavigator from './navigation/AppNavigator';  // Import the navigation setup
+import React from 'react'
+import AppNavigator from './navigation/AppNavigator'
 
 const App = () => {
-  return <AppNavigator />;
-};
+    return <AppNavigator />
+}
 
-export default App;
+export default App

@@ -1,20 +1,38 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
 
-const Rules = () => {
-  const navigation = useNavigation();
+const Rules = ({navigation}) => {
   return (
-    <View style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
+    <SafeAreaView style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
       <View style={styles.header}>
-        <Icon
+        <TouchableOpacity 
+          style={styles.backButtonContainer}
+          activeOpacity={0.7}
+          onPress={() => {
+            // Try different navigation methods to ensure one works
+            try {
+              navigation.navigate('Main', { screen: 'HomePage' });
+            } catch (error) {
+              try {
+                navigation.navigate('Main');
+              } catch (error) {
+                console.log('Navigation error:', error);
+              }
+            }
+          }}
+        >
+          <View style={styles.buttonBackground}>
+          <Icon
           name="chevron-back"
           size={30}
           color="black"
-          style={{position: 'absolute', left: 20, paddingTop: 15}}
-          onPress={() => navigation.goBack()}
+          style={{position: 'absolute', left: 20}}
+          // onPress={() => navigation.goBack()}
         />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.heading}>Rules</Text>
       </View>
 
@@ -24,7 +42,7 @@ const Rules = () => {
           paddingLeft: 20,
           color: '#6E6F79',
           fontSize: 16,
-          fontWeight: 400,
+          fontWeight: '400',
         }}>
         Rules to be followed:
       </Text>
@@ -62,11 +80,11 @@ const Rules = () => {
         </View>
 
         <Image source={require('../assets/rulegirl.png')}
-            style ={{width:'100%',height:'50%',marginTop:'-20%'}}
+            style={{width:'100%',height:'50%',marginTop:'-20%'}}
         />
 
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -76,12 +94,32 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 25,
     fontWeight: '600',
+    color: '#3D4EB0'
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 15,
+    position: 'relative',
+  },
+  backButtonContainer: {
+    position: 'absolute',
+    left: 20,
+    zIndex: 999,
+  },
+  buttonBackground: {
+    width: 70,
+    height: 40,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#3D4EB0',
+    fontWeight: '600',
+    fontSize: 16,
   },
   rulesContainer: {
     backgroundColor: '#F5F5F5',
