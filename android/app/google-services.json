@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "746415085482",
-    "project_id": "laundryapp-d155a",
-    "storage_bucket": "laundryapp-d155a.firebasestorage.app"
+    "project_number": "730412495428",
+    "project_id": "whirlwash-80d42",
+    "storage_bucket": "whirlwash-80d42.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:746415085482:android:13f5cd89fa6af0252e7dd3",
+        "mobilesdk_app_id": "1:730412495428:android:3f94981e7bb3544cc10211",
         "android_client_info": {
-          "package_name": "com.whirllwash"
+          "package_name": "com.whirlwashcopyyy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "746415085482-qsg6ij2bh1t8no6r1v5drgt1raucpd3d.apps.googleusercontent.com",
+          "client_id": "730412495428-9uggihthi7gn3f4p5lissc8bfhqq6jqs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.whirllwash",
+            "package_name": "com.whirlwashcopyyy",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "746415085482-6gtpvrog5mnrl7ksc6ko1rfskk6re78t.apps.googleusercontent.com",
+          "client_id": "730412495428-nufbau8ufjfrh7igi56sjpg03jqk10nl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_oBL9IGkm36YgvzbvPqoeHT_N6jSVdx8"
+          "current_key": "AIzaSyABS3scMuyWfQZSgmL54i_jTZ5bwCQYTIg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "746415085482-6gtpvrog5mnrl7ksc6ko1rfskk6re78t.apps.googleusercontent.com",
+              "client_id": "730412495428-nufbau8ufjfrh7igi56sjpg03jqk10nl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
